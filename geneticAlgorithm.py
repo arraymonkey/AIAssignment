@@ -17,7 +17,7 @@ def heuristic(array):
             offset = i - j
             if array[i] == array[j] - offset or array[i] == array[j] + offset:
                 h = h + 1
-    return (h)
+    return h
 
 
 def generate_population(num):
@@ -34,7 +34,7 @@ def sort_by_fitness(population):
     # print(population)
     for i in range(len(population)):
         for j in range(i + 1, len(population)):
-            if (fitness(population[j]) > fitness(population[i])):
+            if fitness(population[j]) > fitness(population[i]):
                 population[i], population[j] = population[j], population[i]
     return genetic_algorithm(population)  # return the sorted list into the genetic_algorithm
 
@@ -42,7 +42,7 @@ def sort_by_fitness(population):
 def genetic_algorithm(population):
     global genetic_cost_local
     global genetic_cost_all
-    if (fitness(population[0]) == 28):
+    if fitness(population[0]) == 28:
         print(population[0])
         genetic_cost_all += genetic_cost_local
         genetic_cost_local = 0
@@ -59,12 +59,12 @@ def crossover(population):
     for i in range(int(len(population) * 0.2)):
         population.pop(-1)
 
-    while (count != size):
+    while count != size:
         random_num = random.randint(0, 7)
         parent_1 = random.choice(population)  # Choose random array for parent_1
         random.shuffle(population)  # ------Randomly scartered population list
         parent_2 = random.choice(population)  # Choose random array for parent_2
-        if (parent_1 != parent_2):
+        if parent_1 != parent_2:
             child = parent_1[:random_num] + parent_2[random_num:]  # ----This is a crossover for child
             list_of_children.append(child)
             count += 1
@@ -90,8 +90,8 @@ def mutation(list_of_children):
 def genetic_call(num):
     solution_solved = 0
     count = 0
-    while (count < num):
-        if (generate_population(50) != None):
+    while count < num:
+        if generate_population(50) is not None:
             solution_solved += 1
         count += 1
     print("Genetic Algorithm: ", int((solution_solved / num) * 100), "% solved, Search Cost: ", genetic_cost_all)
